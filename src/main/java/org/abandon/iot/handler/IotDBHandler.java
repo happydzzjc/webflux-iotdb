@@ -1,9 +1,7 @@
 package org.abandon.iot.handler;
 
-import lombok.extern.slf4j.Slf4j;
 import org.abandon.iot.bean.IotDBService;
 import org.abandon.iot.entity.IotDataBase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
