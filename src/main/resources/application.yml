@@ -1,0 +1,16 @@
+server:
+  port: 18888
+
+spring:
+  iotdb:
+    user: root
+    password: abandon_iotdb_6667
+    host: 127.0.0.1
+    port: 6667
+    maxSize: 100
+
+# springdoc-openapi项目配置
+springdoc:
+  version: 'V1.0'
+
+
