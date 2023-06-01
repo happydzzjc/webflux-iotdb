@@ -20,8 +20,8 @@ public class Knife4jConfig {
     public GroupedOpenApi streamOpenApi(@Value("${springdoc.version}") String appVersion) {
         String[] paths = {"/iotDB/**"};
         String[] packagedToMatch = {"org.abandon.iot"};
-        return GroupedOpenApi.builder().group("iotDB")
-                .addOpenApiCustomizer(openApi -> openApi.info(new Info().title("iotDB API").version(appVersion)))
+        return GroupedOpenApi.builder().group("IotDB")
+                .addOpenApiCustomizer(openApi -> openApi.info(new Info().title("IotDB API").version(appVersion)))
                 .pathsToMatch(paths).packagesToScan(packagedToMatch)
                 .build();
     }
