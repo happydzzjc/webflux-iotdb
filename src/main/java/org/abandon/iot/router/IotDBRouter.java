@@ -18,7 +18,6 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
@@ -43,7 +42,8 @@ public class IotDBRouter {
     @RouterOperations({
             @RouterOperation(path = "/iotDB/showDatabases", method = RequestMethod.GET, beanClass = IotDBHandler.class, beanMethod = "showDatabases", operation = @Operation(operationId = "showDatabases", summary = "查询数据库", parameters = @Parameter(name = "database", description = "数据库名称", example = "root.**", required = true), responses = {@ApiResponse(content = @Content(schema = @Schema(implementation = IotDataBase.class)))})),
             @RouterOperation(path = "/iotDB/creatDatabase", method = RequestMethod.POST, beanClass = IotDBHandler.class, beanMethod = "creatDatabase", operation = @Operation(operationId = "creatDatabase", summary = "创建数据库", requestBody = @RequestBody(required = true, description = "请求体", content = @Content(schema = @Schema(implementation = IotDataBase.class))))),
-            @RouterOperation(path = "/iotDB/deleteDatabase/{database}", method = RequestMethod.DELETE, beanClass = IotDBHandler.class, beanMethod = "deleteDatabase", operation = @Operation(operationId = "deleteDatabase", summary = "删除数据库", parameters = @Parameter(name = "database", description = "数据库名称", required = true)))
+            @RouterOperation(path = "/iotDB/deleteDatabase/{database}", method = RequestMethod.DELETE, beanClass = IotDBHandler.class, beanMethod = "deleteDatabase", operation = @Operation(operationId = "deleteDatabase", summary = "删除数据库", parameters = @Parameter(name = "database", description = "数据库名称", required = true))),
+            @RouterOperation(path = "/iotDB/executeCustomerSQL", method = RequestMethod.GET, beanClass = IotDBHandler.class, beanMethod = "executeCustomerSQL", operation = @Operation(operationId = "executeCustomerSQL", summary = "执行自定义SQL", parameters = @Parameter(name = "sql", description = "自定义SQL", example = "show version;", required = true), responses = {@ApiResponse(content = @Content(schema = @Schema(implementation = IotDataBase.class)))})),
     })
     @Bean
     public RouterFunction<ServerResponse> iotDBRoutersFunction() {
@@ -51,6 +51,7 @@ public class IotDBRouter {
                 .GET(BASE_PATH + "/showDatabases", iotDBHandler::showDatabases)
                 .POST(BASE_PATH + "/creatDatabase", accept(APPLICATION_JSON), iotDBHandler::creatDatabase)
                 .DELETE(BASE_PATH + "/deleteDatabase/{database}", iotDBHandler::deleteDatabase)
+                .GET(BASE_PATH + "/executeCustomerSQL", iotDBHandler::executeCustomerSQL)
                 .build();
     }
 }

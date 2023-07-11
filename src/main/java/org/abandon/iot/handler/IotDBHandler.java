@@ -43,4 +43,9 @@ public class IotDBHandler {
         String database = request.pathVariable("database");
         return ok().contentType(MediaType.APPLICATION_JSON).body(iotDBService.deleteDatabase(database), String.class);
     }
+
+    public Mono<ServerResponse> executeCustomerSQL(ServerRequest request) {
+        String customerSQL = request.queryParam("sql").orElse("");
+        return ok().contentType(MediaType.APPLICATION_JSON).body(iotDBService.executeCustomerSQL(customerSQL), String.class);
+    }
 }
